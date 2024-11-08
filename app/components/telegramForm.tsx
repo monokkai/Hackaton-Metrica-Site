@@ -92,7 +92,7 @@ const TelegramForm: React.FC = () => {
       <h2 className="text-center text-2xl font-bold mb-5 w-1/2">Заполните форму</h2>
       <form onSubmit={handleSubmit} className="w-1/3">
         <div className="flex mt-1 flex-col">
-          <label className="block mb-2">Имя:</label>
+          <label className="block mb-2 text-sm font-medium">Имя:</label>
           <input
             type="text"
             required
@@ -101,7 +101,7 @@ const TelegramForm: React.FC = () => {
           />
         </div>
         <div className="flex mt-1 flex-col">
-          <label className="block mb-2">Email:</label>
+          <label className="block mb-2 text-sm font-medium">Email:</label>
           <input
             type="email"
             required
@@ -110,7 +110,7 @@ const TelegramForm: React.FC = () => {
           />
         </div>
         <div className="flex mt-1 flex-col">
-          <label className="block mb-2">Описание:</label>
+          <label className="block mb-2 text-sm font-medium">Описание:</label>
           <textarea
             onChange={(e) => setMessage(e.target.value)}
             className="border bg-gray-300 p-2 text-black rounded-xl"
@@ -118,7 +118,7 @@ const TelegramForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-xl  mt-5 bg-purple-500 cursor-pointer hover:bg-purple-900 transition-colors duration-200 text-white p-2 rounded"
+          className="w-full rounded-xl  mt-5 bg-purple-500 cursor-pointer hover:bg-purple-900 transition-colors duration-200 text-white p-2 rounded-xl"
         >
           Отправить
         </button>
