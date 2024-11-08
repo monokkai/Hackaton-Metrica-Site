@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
         <div>
           <CallButton />
         </div>
-        <div ref={registrationRef} className="flex justify-center items-center">
+        <div ref={registrationRef} className="flex justify-center items-center mb-8">
           {/* <TelegramForm /> */}
           {/* <AccordionCSV /> */}
           <ChoiceReg />

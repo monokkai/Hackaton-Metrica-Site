@@ -77,7 +77,7 @@ const CsvUploader: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 rounded-lg shadow-lg">
+    <div className="max-w-md mx-auto mt-10 p-4 rounded-lg">
       <h2 className="text-xl font-bold mb-5 ">Загрузить CSV файл</h2>
       <input
         type="file"
