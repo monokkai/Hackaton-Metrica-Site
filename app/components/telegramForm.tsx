@@ -39,7 +39,8 @@ const TelegramForm: React.FC = () => {
     }
   };
 
-  // const [recording, setRecording] = useState(false);
+  // const [recording, setRecording] = useState(false);  // сщтые хкусщквштпб ыуеКусщквштпъ = гыуЫефеу(афдыу)ж
+
   // const [audioURL, setAudioURL] = useState("");
   // const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   // const audioChunksRef = useRef<Blob[]>([]);
@@ -87,7 +88,7 @@ const TelegramForm: React.FC = () => {
   return (
     <section
       id="registration-form"
-      className="items-center justify-center flex flex-col w-3/6 "
+      className="items-center justify-center flex flex-col w-1/2 "
     >
       <h2 className="text-center text-2xl font-bold mb-16 w-1/2">Заполните форму регистрации</h2>
       <form onSubmit={handleSubmit} className="w-1/3">

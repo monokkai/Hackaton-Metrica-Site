@@ -1,4 +1,4 @@
-// File: /Users/mayeregor/Desktop/WEB-DZ-CIFRA/Hackaton Projects/Hackaton2Prjct/react-app/app/page.tsx
+// File: /Users/mayeregor/Desktop/WEB-DZ-CIFRA/Hackaton Projects/Hackaton-2-Metrica/react-app/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
