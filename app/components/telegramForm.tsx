@@ -38,7 +38,7 @@ const TelegramForm: React.FC = () => {
     }
   };
 
-  // const [recording, setRecording] = useState(false);  // сщтые хкусщквштпб ыуеКусщквштпъ = гыуЫефеу(афдыу)ж
+  // const [recording, setRecording] = useState(false); 
 
   // const [audioURL, setAudioURL] = useState("");
   // const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -89,7 +89,7 @@ const TelegramForm: React.FC = () => {
       id="registration-form"
       className="items-center justify-center flex flex-col w-1/2 "
     >
-      <h2 className="text-center text-2xl font-bold mb-16 w-1/2">Заполните форму регистрации</h2>
+      <h2 className="text-center text-2xl font-bold mb-5 w-1/2">Заполните форму</h2>
       <form onSubmit={handleSubmit} className="w-1/3">
         <div className="flex mt-1 flex-col">
           <label className="block mb-2">Имя:</label>
@@ -118,7 +118,7 @@ const TelegramForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full rounded-xl mt-5 bg-purple-500 cursor-pointer hover:bg-purple-900 transition-colors duration-200 text-white p-2 rounded"
+          className="w-full rounded-xl  mt-5 bg-purple-500 cursor-pointer hover:bg-purple-900 transition-colors duration-200 text-white p-2 rounded"
         >
           Отправить
         </button>
@@ -145,7 +145,7 @@ const TelegramForm: React.FC = () => {
             </div>
           )}
         </div> */}
-        <VoiceRecorder />
+        <VoiceRecorder/>
       </form>
     </section>
   );

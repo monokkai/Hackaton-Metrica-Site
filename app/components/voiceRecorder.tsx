@@ -55,21 +55,21 @@ const VoiceMessage: React.FC = () => {
       {isRecording ? (
         <button
           onClick={stopRecording}
-          className="bg-red-500 text-white p-2 rounded"
+          className="bg-red-500 text-white p-2 rounded-xl"
         >
           Закончить запись
         </button>
       ) : (
         <button
           onClick={startRecording}
-          className="bg-purple-500 text-white p-2 rounded hover:bg-purple-900 transition-colors duration-200"
+          className="bg-purple-500 text-white p-2 rounded-xl hover:bg-purple-900 transition-colors duration-200"
         >
           Начать запись
         </button>
       )}
       <button
         onClick={sendVoiceMessage}
-        className="bg-green-800 text-white p-2 rounded hover:bg-green-700 transition-colors duration-200"
+        className="bg-green-800 text-white p-2 rounded-xl hover:bg-green-700 transition-colors duration-200"
       >
         Оправить сообщение
       </button>
