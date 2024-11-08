@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import ButtonWrite from "./buttonWrite";
 import VoiceRecorder from "./voiceRecorder";
 
 const TelegramForm: React.FC = () => {
@@ -98,7 +97,7 @@ const TelegramForm: React.FC = () => {
             type="text"
             required
             onChange={(e) => setName(e.target.value)}
-            className="border bg-gray-300 p-2  text-black rounded-xl"
+            className="border bg-gray-300 p-2 text-black rounded-xl"
           />
         </div>
         <div className="flex mt-1 flex-col">

@@ -1,82 +1,80 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
-const VoiceRecorder: React.FC = () => {
-  const [isRecording, setIsRecording] = useState<boolean>(false);
+const VoiceMessage: React.FC = () => {
+  const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunks: Blob[] = [];
+  const [recorder, setRecorder] = useState<MediaRecorder | null>(null);
 
-  const handleStartRecording = async () => {
-    setIsRecording(true);
-
+  const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorderRef.current = new MediaRecorder(stream);
+    const mediaRecorder = new MediaRecorder(stream);
 
-    mediaRecorderRef.current.ondataavailable = (event) => {
-      audioChunks.push(event.data);
+    mediaRecorder.ondataavailable = (event) => {
+      setAudioBlob(event.data);
     };
 
-    mediaRecorderRef.current.onstop = () => {
-      const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-      setAudioBlob(audioBlob);
-      audioChunks.length = 0; // Очистка массива
-    };
-
-    mediaRecorderRef.current.start();
+    mediaRecorder.start();
+    setRecorder(mediaRecorder);
+    setIsRecording(true);
   };
 
-  const handleStopRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
+  const stopRecording = () => {
+    if (recorder) {
+      recorder.stop();
       setIsRecording(false);
     }
   };
 
-  const handleSendAudio = async () => {
+  const sendVoiceMessage = async () => {
     if (!audioBlob) return;
 
     const formData = new FormData();
-    formData.append("audio", audioBlob, "voice_message.wav");
+    formData.append("chat_id", "-4562672167");
+    formData.append("voice", audioBlob, "voice_message.ogg");
 
     const response = await fetch(
-      "https://api.telegram.org/bot7979315922:AAEy5xVGpZvvP8H6RNdkcz2qQWae4uxGrXs/sendVoice",
+      `https://api.telegram.org/bot7979315922:AAEy5xVGpZvvP8H6RNdkcz2qQWae4uxGrXs
+/sendVoice`,
       {
         method: "POST",
         body: formData,
       }
     );
 
-    if (response.ok) {
-      alert("Голосовое сообщение отправлено!");
-      setAudioBlob(null); // Очистить аудио после отправки
+    const data = await response.json();
+    if (data.ok) {
+      alert("Голосовое сообщение успешно отправлено!");
     } else {
-      alert("Ошибка при отправке!");
+      alert("Ошибка при отправке голосового сообщения: " + data.description);
     }
   };
 
   return (
-    <div className="flex flex-col items-center mt-5">
-      <p className="mt-1 mb-3 text-center">Не можете написать? Запишите голосом!</p>
-      <button
-        className={`px-4 py-2 text-white ${isRecording ? "bg-red-500" : "bg-purple-500"} rounded`}
-        onClick={isRecording ? handleStopRecording : handleStartRecording}
-      >
-        {isRecording ? "Остановить запись" : "Записать голосовое сообщение"}
-      </button>
-
-      {audioBlob && (
-        <div className="mt-4">
-          <audio controls src={URL.createObjectURL(audioBlob)} />
-          <button
-            className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
-            onClick={handleSendAudio}
-          >
-            Отправить голосовое сообщение
-          </button>
-        </div>
+    <div className="flex flex-col items-center justify-center space-y-4">
+      <p className="text-sm text-center mt-4">Не можете записать? Скажите!</p>
+      {isRecording ? (
+        <button
+          onClick={stopRecording}
+          className="bg-red-500 text-white p-2 rounded"
+        >
+          Закончить запись
+        </button>
+      ) : (
+        <button
+          onClick={startRecording}
+          className="bg-purple-500 text-white p-2 rounded hover:bg-purple-900 transition-colors duration-200"
+        >
+          Начать запись
+        </button>
       )}
+      <button
+        onClick={sendVoiceMessage}
+        className="bg-green-800 text-white p-2 rounded hover:bg-green-700 transition-colors duration-200"
+      >
+        Оправить сообщение
+      </button>
     </div>
   );
 };
 
-export default VoiceRecorder;
+export default VoiceMessage;

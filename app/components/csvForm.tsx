@@ -13,7 +13,6 @@ const CsvForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Создание новой строки данных
     const newRow = [
       theme,
       description,
@@ -56,7 +55,6 @@ const CsvForm: React.FC = () => {
 
       const result = await response.text();
       alert(result);
-      // Очистка формы после успешного запроса
       setIndex("");
       setTheme("");
       setDescription("");
