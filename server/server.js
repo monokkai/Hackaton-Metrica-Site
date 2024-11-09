@@ -17,11 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(__dirname, "uploads");
-    fs.mkdirSync(uploadPath, { recursive: true }); // Создаем папку, если не существует
+    fs.mkdirSync(uploadPath, { recursive: true }); // Создаем папку
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // Сохраняем файл под оригинальным именем
+    cb(null, file.originalname); // Сохраняем файл
   },
 });
 
@@ -46,7 +46,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
   console.log("Request body:", req.body); // Логируйте тело запроса
   console.log("Uploaded file:", req.file); // Логируйте загруженный файл
   if (!req.file) {
-    return res.status(400).send("Нет файла для загрузки здесь!.");
+    return res.status(400).send("Нет файла для загрузки здесь!");
   }
   const { tema, opisanie } = req.body;
 
