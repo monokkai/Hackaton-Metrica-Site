@@ -109,7 +109,7 @@ const CsvUploader: React.FC = () => {
     formData.append("opisanie", opisanie);
 
     try {
-      const response = await fetch("http://localhost:3001/upload", {
+      const response = await fetch("http://localhost:5001/upload", {
         method: "POST",
         body: formData,
       });
@@ -126,7 +126,7 @@ const CsvUploader: React.FC = () => {
       setTema("");
       setOpisanie("");
     } catch (error) {
-      console.error("Ошибка при отправке файла:", error);
+      console.log("Ошибка при отправке файла:", error);
       alert("Ошибка при отправке файла.");
     }
   };

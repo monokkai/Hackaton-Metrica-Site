@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const FormData = require("form-data");
 const app = express();
+const http = require("http");
 const PORT = 3001;
 
 // Настройка CORS
@@ -37,13 +38,27 @@ function generateSerialNumber() {
       Math.floor(Math.random() * characters.length)
     );
   }
-
   return serialNumber;
 }
 
+app.get("/upload", upload.single("file"), (req, res) => {
+  res
+    .status(200)
+    .send("Сервер работает! Используйте POST /upload для загрузки файлов.");
+});
+
 app.post("/upload", upload.single("file"), (req, res) => {
-  console.log("Request body:", req.body); // Логируйте тело запроса
-  console.log("Uploaded file:", req.file); // Логируйте загруженный файл
+  let body = "";
+  app.on("data", (chunk) => {
+    body += chunk;
+  });
+  app.on("end", () => {
+    console.log("Request body:", body); // Логируйте тело запроса
+    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify(body));
+  });
+  // console.log("Request body:", req.body); // Логируйте тело запроса
+  // console.log("Uploaded file:", req.file); // Логируйте загруженный файл
   if (!req.file) {
     return res.status(400).send("Нет файла для загрузки здесь!");
   }
@@ -63,13 +78,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
     const characters = data.length;
 
     // Отправляем результат обработки пользователю
-    res
-      .status(200)
-      .send(
-        `Файл загружен успешно! Всего строк: ${lines}, Всего символов: ${characters}`
-      );
-
-    console.log("Файл загружен:", req.file);
+    res.status(200);
 
     res.status(200);
 
@@ -92,26 +101,47 @@ app.post("/upload", upload.single("file"), (req, res) => {
       fs.createReadStream("../server/uploads/train_data.csv")
     );
 
-    form.submit("http://127.0.0.1:5000", (err, response) => {
-      if (err) {
-        return res.status(500);
-      }
-      response.on("data", (data) => {
-        console.log("Response: ", data);
+    // Опции для HTTP-запроса
+    const options = {
+      method: "POST",
+      host: "localhost",
+      port: 5001,
+      path: "/upload",
+      headers: {
+        ...form.getHeaders(), // Добавляем необходимые заголовки
+      },
+    };
+
+    // Создание HTTP-запроса
+    const req = http.request(options, (res) => {
+      console.log(`STATUS: ${res.statusCode}`);
+
+      // Обработка данных ответа
+      res.on("data", (chunk) => {
+        console.log("Response: ", chunk.toString());
       });
-      response.on("end", () => {
-        res.status(200);
+
+      res.on("end", () => {
+        console.log("File uploaded successfully.");
       });
+    });
+
+    // Обработка ошибок запроса
+    req.on("error", (err) => {
+      console.error("Error uploading file: ", err);
+    });
+
+    // Присоединение данных формы к запросу
+    form.pipe(req);
+
+    // Завершение запроса только после того, как данные потока закончены
+    form.on("finish", () => {
+      req.end(); // Завершаем запрос
     });
   });
 });
 // Эндпоинт для проверки работоспособности сервера
 app.get("/", (req, res) => {
-  res
-    .status(200)
-    .send("Сервер работает! Используйте POST /upload для загрузки файлов.");
-});
-app.get("/upload", upload.single("file"), (req, res) => {
   res
     .status(200)
     .send("Сервер работает! Используйте POST /upload для загрузки файлов.");
