@@ -4,13 +4,13 @@ const Imap = require("imap");
 const axios = require("axios");
 
 // Конфигурация почты и JIRA
-const MAIL_HOST = "imap.emailProps.ru"; //почта для проверки
+const MAIL_HOST = "imap"; //почта для проверки
 const MAIL_USER = "example";
 const MAIL_PASS = "PASSWORD";
 const JIRA_URL = "URL";
 const JIRA_USER = "EMAIL"; //их собственный email
 const JIRA_API_TOKEN = "some";
-const ALLOWED_SENDER = "example@mail.ru";
+const ALLOWED_SENDER = "example";
 
 const app = express();
 app.use(express.json());
@@ -71,8 +71,7 @@ const fetchEmails = () => {
 
 // Функция для обработки данных (вместо этого вы можете вызвать свою модель ML)
 const processEmail = (body) => {
-  // Здесь может быть замена на вашу ML модель
-  return `Результат обработки: ${body}`; // Эмуляция обработки
+  return `Результат обработки: ${body}`;
 };
 
 // Функция для отправки данных в JIRA
