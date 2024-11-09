@@ -80,7 +80,7 @@ const sendToJira = async (issue) => {
   const payload = {
     fields: {
       project: {
-        key: "projects?page=1&sortKey=name&sortOrder=ASC&types=software%2Cbusiness",
+        key: "PROJECT_KEY",
       },
       summary: issue.summary,
       description: issue.description,
