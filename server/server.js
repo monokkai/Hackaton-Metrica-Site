@@ -4,7 +4,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-
+const FormData = require("form-data");
 const app = express();
 const PORT = 3001;
 
@@ -89,6 +89,48 @@ app.post("/upload", upload.single("file"), (req, res) => {
       }
       // res.status(200).send("Данные успешно добавлены в CSV.");
       res.status(200);
+    });
+
+    // const fileStream = fs.createReadStream(filePath);
+    // const options = {
+    //   hostname: "localhost",
+    //   port: 5000,
+    //   path: "/upload", // Путь к вашему API на Python
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "multipart/form-data", // Убедитесь, что содержимое будет распознано
+    //   },
+    // };
+
+    // // Отправка запроса на сервер Python
+    // const request = http.request(options, (response) => {
+    //   let data = "";
+
+    //   // Сбор данных из ответа
+    //   response.on("data", (chunk) => {
+    //     data += chunk;
+    //   });
+
+    //   response.on("end", () => {
+    //     res.json(JSON.parse(data)); // Отправляем ответ обратно клиенту
+    //   });
+
+    const form = new FormData();
+    form.append(
+      "file",
+      fs.createReadStream("../server/uploads/train_data.csv")
+    );
+
+    form.submit("http://localhost:5000/upload", (err, response) => {
+      if (err) {
+        return res.status(500);
+      }
+      response.on("data", (data) => {
+        console.log("Response: ", data);
+      });
+      response.on("end", () => {
+        res.status(200);
+      });
     });
   });
 });
