@@ -8,13 +8,12 @@ const TelegramForm: React.FC = () => {
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
 
-  const TG_BOT_API_URL = `https://api.telegram.org/bot7979315922:AAEy5xVGpZvvP8H6RNdkcz2qQWae4uxGrXs
-/sendMessage`;
+  const TG_BOT_API_URL = `API`;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const chat_id = "-4562672167";
+    const chat_id = "ID CHAT";
 
     const payload = {
       chat_id,
