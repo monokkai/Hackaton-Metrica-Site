@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
@@ -95,10 +94,10 @@ app.post("/upload", upload.single("file"), (req, res) => {
     // const options = {
     //   hostname: "localhost",
     //   port: 5000,
-    //   path: "/upload", // Путь к вашему API на Python
+    //   path: "/upload",
     //   method: "POST",
     //   headers: {
-    //     "Content-Type": "multipart/form-data", // Убедитесь, что содержимое будет распознано
+    //     "Content-Type": "multipart/form-data",
     //   },
     // };
 
