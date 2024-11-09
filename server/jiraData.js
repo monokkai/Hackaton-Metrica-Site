@@ -7,11 +7,9 @@ const axios = require("axios");
 const MAIL_HOST = "imap.mail.ru"; //почта для проверки
 const MAIL_USER = "example@mail.ru";
 const MAIL_PASS = "123qweqwe";
-const JIRA_URL =
-  "https://home.atlassian.com/o/6019530d-ada9-44da-b06e-af028bf55dff/?cloudId=8fdcb77b-f0ae-413a-a5a4-4c3412f5529a";
+const JIRA_URL = "some";
 const JIRA_USER = "example@atlassian.com"; //их собственный email
-const JIRA_API_TOKEN =
-  "ATATT3xFfGF0Rfhiv7DI2iiSNUXEGSrxQfbAoRCQ4Q9ODhsG2YkyG-4-VybxlXfhelVCiYbdUMBFUMY36TY7Ja5kkShqk7bpfTWYBCxozjztPAr1d2UDX6fKIOgmsMUZYQAS70UY-dP2cM_R7opiGH22I-h9MispB-BcXZX-3bdc2siAVsYFUyo=78956B0D";
+const JIRA_API_TOKEN = "some";
 const ALLOWED_SENDER = "example@mail.ru";
 
 const app = express();
