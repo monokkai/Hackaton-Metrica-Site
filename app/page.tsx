@@ -5,8 +5,6 @@ import CallButton from "./components/callButton";
 import TelegramForm from "./components/telegramForm";
 import Footer from "./components/footer";
 import { useRef } from "react";
-import Caroucel from "./components/caroucelLoyal";
-import AccordionCSV from "./components/accordion";
 import ChoiceReg from "./components/choiceReg";
 import Layout from "./components/layouts/article";
 const HomePage: React.FC = () => {
@@ -38,7 +36,10 @@ const HomePage: React.FC = () => {
         <div>
           <CallButton />
         </div>
-        <div ref={registrationRef} className="flex justify-center items-center mb-8">
+        <div
+          ref={registrationRef}
+          className="flex justify-center items-center mb-8"
+        >
           {/* <TelegramForm /> */}
           {/* <AccordionCSV /> */}
           <ChoiceReg />

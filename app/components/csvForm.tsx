@@ -49,7 +49,7 @@ const CsvUploader: React.FC = () => {
       updatedData.map((row) => row.join(",")).join("\n");
 
     try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
+      const response = await fetch("http://localhost:3001/check-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
