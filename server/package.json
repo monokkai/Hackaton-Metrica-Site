@@ -15,6 +15,7 @@
     "body-parser": "^1.20.3",
     "express": "^4.21.1",
     "form-data": "^4.0.1",
+    "fs": "^0.0.1-security",
     "imap": "^0.8.19",
     "mailparser": "^3.7.1",
     "multer": "^1.4.5-lts.1",

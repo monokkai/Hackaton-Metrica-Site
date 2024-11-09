@@ -1,79 +1,134 @@
 import React, { useState } from "react";
 
 const CsvUploader: React.FC = () => {
+  // const [file, setFile] = useState<File | null>(null);
+  // const [data, setData] = useState<string[][]>([]);
+  // const [theme, setTheme] = useState<string>("");
+  // const [description, setDescription] = useState<string>("");
+  // const [index, setIndex] = useState<string>("");
+  // const [results, setResults] = useState<
+  //   { pointOfFailure: string; equipmentType: string; serialNumber: string }[]
+  // >([]);
+
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const selectedFile = e.target.files?.[0];
+
+  //   if (selectedFile) {
+  //     setFile(selectedFile);
+  //     parseCsv(selectedFile);
+  //   }
+  // };
+
+  // const parseCsv = (file: File) => {
+  //   const reader = new FileReader();
+  //   reader.onload = (event) => {
+  //     const text = event.target?.result as string;
+  //     const rows = text.split("\n").map((row) => row.split(","));
+  //     setData(rows);
+  //   };
+  //   reader.readAsText(file);
+  // };
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   const updatedData = [
+  //     ...data,
+  //     [
+  //       theme,
+  //       description,
+  //       "Точка отказа",
+  //       "Тип оборудования",
+  //       "Серийный номер",
+  //       index,
+  //     ],
+  //   ];
+
+  //   const csvContent =
+  //     "Тема,Описание,Точка отказа,Тип оборудования,Серийный номер,index\n" +
+  //     updatedData.map((row) => row.join(",")).join("\n");
+
+  //   try {
+  //     const response = await fetch("http://localhost:3001/upload", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ csv: csvContent }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Ошибка API");
+  //     }
+
+  //     const data = await response.json();
+
+  //     // Предполагается, что API возвращает массив объектов с результатами
+  //     setResults(data.results.slice(0, 3)); // 3 резульатта будут сохранены
+  //   } catch (error) {
+  //     console.error("Ошибка при отправке данных:", error);
+  //     alert("Произошла ошибка при отправке данных.");
+  //   }
+
+  //   // Очистка формы
+  //   setTheme("");
+  //   setDescription("");
+  //   setIndex("");
+  // };
+
   const [file, setFile] = useState<File | null>(null);
-  const [data, setData] = useState<string[][]>([]);
-  const [theme, setTheme] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [index, setIndex] = useState<string>("");
-  const [results, setResults] = useState<
-    { pointOfFailure: string; equipmentType: string; serialNumber: string }[]
-  >([]);
+  const [tema, setTema] = useState<string>("");
+  const [opisanie, setOpisanie] = useState<string>("");
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      parseCsv(selectedFile);
     }
   };
 
-  const parseCsv = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      const rows = text.split("\n").map((row) => row.split(","));
-      setData(rows);
-    };
-    reader.readAsText(file);
+  const handleTemaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTema(event.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleOpisanieChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOpisanie(event.target.value);
+  };
 
-    const updatedData = [
-      ...data,
-      [
-        theme,
-        description,
-        "Точка отказа",
-        "Тип оборудования",
-        "Серийный номер",
-        index,
-      ],
-    ];
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    const csvContent =
-      "Тема,Описание,Точка отказа,Тип оборудования,Серийный номер,index\n" +
-      updatedData.map((row) => row.join(",")).join("\n");
+    if (!file || !tema || !opisanie) {
+      alert("Пожалуйста, заполните все поля!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("tema", tema);
+    formData.append("opisanie", opisanie);
 
     try {
-      const response = await fetch("URL_ADDRESS", {
+      const response = await fetch("http://localhost:3001/upload", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ csv: csvContent }),
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Ошибка API");
+        throw new Error("Ошибка при отправке данных");
       }
 
-      const data = await response.json();
+      const result = await response.text();
+      alert(`Файл успешно отправлен! Ответ: ${result}`);
 
-      // Предполагается, что API возвращает массив объектов с результатами
-      setResults(data.results.slice(0, 3)); // 3 резульатта будут сохранены
+      // Сброс полей формы
+      setFile(null);
+      setTema("");
+      setOpisanie("");
     } catch (error) {
-      console.error("Ошибка при отправке данных:", error);
-      alert("Произошла ошибка при отправке данных.");
+      console.error("Ошибка при отправке файла:", error);
+      alert("Ошибка при отправке файла.");
     }
-
-    // Очистка формы
-    setTheme("");
-    setDescription("");
-    setIndex("");
   };
 
   return (
@@ -90,18 +145,18 @@ const CsvUploader: React.FC = () => {
           <label className="block mb-1 text-sm font-medium">Тема:</label>
           <input
             type="text"
-            value={theme}
-            onChange={(e) => setTheme(e.target.value)}
             required
+            value={tema}
+            onChange={handleTemaChange}
             className="w-full bg-gray-200 p-2 text-black border border-gray-300 rounded-xl"
           />
         </div>
         <div>
           <label className="block mb-1 text-sm font-medium">Описание:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+          <input
             required
+            value={opisanie}
+            onChange={handleOpisanieChange}
             className="w-full bg-gray-200 p-2 text-black border border-gray-300 rounded-xl"
           />
         </div>
@@ -109,9 +164,8 @@ const CsvUploader: React.FC = () => {
           <label className="block mb-1 text-sm font-medium">Index:</label>
           <input
             type="text"
-            value={index}
-            onChange={(e) => setIndex(e.target.value)}
             required
+            onChange={handleFileChange}
             className="w-full bg-gray-200 text-black p-2 border border-gray-300 rounded-xl"
           />
         </div>
@@ -124,7 +178,7 @@ const CsvUploader: React.FC = () => {
       </form>
 
       {/* Отображение результатов */}
-      {results.length > 0 && (
+      {/* {results.length > 0 && (
         <div className="mt-4">
           <h2 className="text-xl font-bold mt-4">Результаты</h2>
           <div
@@ -141,8 +195,8 @@ const CsvUploader: React.FC = () => {
               ))}
             </ul>
           </div>
-        </div>
-      )}
+        </div> */}
+      {/* )} */}
     </div>
   );
 };

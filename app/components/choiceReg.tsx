@@ -5,7 +5,7 @@ const ChoiceReg = () => {
   return (
     //Вид форм на выбор пользователя!
     <section className="flex flex-row items-center justify-center w-full">
-      <TelegramForm />
+      {/* <TelegramForm /> */}
       <CSVForm />
     </section>
   );
