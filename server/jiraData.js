@@ -4,11 +4,11 @@ const Imap = require("imap");
 const axios = require("axios");
 
 // Конфигурация почты и JIRA
-const MAIL_HOST = "imap.mail.ru"; //почта для проверки
-const MAIL_USER = "example@mail.ru";
-const MAIL_PASS = "123qweqwe";
-const JIRA_URL = "some";
-const JIRA_USER = "example@atlassian.com"; //их собственный email
+const MAIL_HOST = "imap.emailProps.ru"; //почта для проверки
+const MAIL_USER = "example";
+const MAIL_PASS = "PASSWORD";
+const JIRA_URL = "URL";
+const JIRA_USER = "EMAIL"; //их собственный email
 const JIRA_API_TOKEN = "some";
 const ALLOWED_SENDER = "example@mail.ru";
 
