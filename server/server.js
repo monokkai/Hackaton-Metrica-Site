@@ -71,11 +71,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
     console.log("Файл загружен:", req.file);
 
-    // res.status(200).json({ message: "Файл успешно загружен" });
     res.status(200);
-    // if (!tema || !opisanie) {
-    //   return res.status(400).send("ТЕМА и ОПИСАНИЕ обязательны.");
-    // }
 
     const serialNumber = generateSerialNumber();
     const csvLine = `${tema},${opisanie},${serialNumber}\n`;
@@ -90,37 +86,13 @@ app.post("/upload", upload.single("file"), (req, res) => {
       res.status(200);
     });
 
-    // const fileStream = fs.createReadStream(filePath);
-    // const options = {
-    //   hostname: "localhost",
-    //   port: 5000,
-    //   path: "/upload",
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // };
-
-    // // Отправка запроса на сервер Python
-    // const request = http.request(options, (response) => {
-    //   let data = "";
-
-    //   // Сбор данных из ответа
-    //   response.on("data", (chunk) => {
-    //     data += chunk;
-    //   });
-
-    //   response.on("end", () => {
-    //     res.json(JSON.parse(data)); // Отправляем ответ обратно клиенту
-    //   });
-
     const form = new FormData();
     form.append(
       "file",
       fs.createReadStream("../server/uploads/train_data.csv")
     );
 
-    form.submit("http://localhost:5000/upload", (err, response) => {
+    form.submit("http://127.0.0.1:5000", (err, response) => {
       if (err) {
         return res.status(500);
       }
