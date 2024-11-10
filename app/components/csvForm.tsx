@@ -127,7 +127,6 @@ const CsvUploader: React.FC = () => {
       setOpisanie("");
     } catch (error) {
       console.log("Ошибка при отправке файла:", error);
-      alert("Ошибка при отправке файла.");
     }
   };
 

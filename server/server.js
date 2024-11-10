@@ -106,6 +106,24 @@ app.post("/upload", upload.single("file"), (req, res) => {
       },
     };
 
+    if (req.file) {
+      fs.readFile(
+        path.join(__dirname, "uploads", req.file.filename),
+        "utf8",
+        (err, data) => {
+          if (err) {
+            console.error(err);
+            return res.status(500).send("Error reading the file");
+          }
+
+          const rows = data.split("\n").map((row) => row.split(","));
+          res.render("display", { rows });
+        }
+      );
+    } else {
+      res.status(400).send("No file uploaded");
+    }
+
     // Создание HTTP-запроса
     const req = http.request(options, (res) => {
       console.log(`STATUS: ${res.statusCode}`);

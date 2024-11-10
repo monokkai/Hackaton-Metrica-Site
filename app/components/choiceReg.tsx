@@ -1,5 +1,6 @@
 import CSVForm from "./csvForm";
 import TelegramForm from "./telegramForm";
+import SetTable from "./setTable";
 
 const ChoiceReg = () => {
   return (
@@ -7,6 +8,7 @@ const ChoiceReg = () => {
     <section className="flex flex-row items-center justify-center w-full">
       {/* <TelegramForm /> */}
       <CSVForm />
+      {/* <SetTable /> */}
     </section>
   );
 };
