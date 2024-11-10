@@ -69,17 +69,11 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   // Считываем файл
   fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).send("Ошибка при чтении файла.");
-    }
-
     // Обработка файла: считаем количество строк и символов
     const lines = data.split("\n").length;
     const characters = data.length;
 
     // Отправляем результат обработки пользователю
-    res.status(200);
-
     res.status(200);
 
     const serialNumber = generateSerialNumber();
@@ -125,6 +119,10 @@ app.post("/upload", upload.single("file"), (req, res) => {
         console.log("File uploaded successfully.");
       });
     });
+    // if (!req.file) {
+    //   return res.status(400).send("Нет файла для загрузки.");
+    // }
+    // res.status(200).send(`Файл ${req.file.originalname} успешно загружен.`);
 
     // Обработка ошибок запроса
     req.on("error", (err) => {
@@ -140,6 +138,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
     });
   });
 });
+
 // Эндпоинт для проверки работоспособности сервера
 app.get("/", (req, res) => {
   res
